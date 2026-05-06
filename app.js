@@ -3,10 +3,34 @@ const cors = require("cors");
 const contactsRouter = require("./app/routes/contact.route");
 const ApiError = require("./app/api-error");
 const app = express();
+const session = require("express-session");
+const passport = require("./app/config/passport");
 
-app.use(cors());
+
+app.use(
+  session({
+    secret: "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",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors({
+  origin: "http://localhost:3001",
+  credentials: true
+}));
 app.use(express.json());
+
 app.use("/api/contacts", contactsRouter);
+
+app.use("/auth", require("./app/routes/auth.route"));
+
+app.get("/auth/user", (req, res) => {
+  res.send(req.user);
+});
+
 
 app.get("/", (req, res)=>{
     res.json({message:"Welcome to contact book application."});
