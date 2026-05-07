@@ -27,7 +27,8 @@ router.get("/user", (req, res) => {
 // logout
 router.get("/logout", (req, res) => {
   req.logout(() => {
-    res.send({ message: "Logged out" });
+  //  res.send({ message: "Logged out" });
+    res.redirect("http://localhost:3001"); // frontend
   });
 });
 
