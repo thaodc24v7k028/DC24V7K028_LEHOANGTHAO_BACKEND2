@@ -9,7 +9,7 @@ const passport = require("./app/config/passport");
 
 app.use(
   session({
-    secret: "GOOGLE_CLIENT_SECRET",
+    secret: "process.env.GOOGLE_CLIENT_SECRET",
     resave: false,
     saveUninitialized: true,
   })
